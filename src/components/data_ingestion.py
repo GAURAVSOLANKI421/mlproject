@@ -5,6 +5,9 @@ from src.logger import loggers
 import pandas as pd 
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
+from src.components.data_transformation import Preprocessing
+from src.components.data_transformation import Datapreprocessconfig
+
 @dataclass
 class DataIngestionConfig:
     train_data_path :str = os.path.join('artifact' , 'train.csv')
@@ -29,11 +32,7 @@ class DataIngestion:
             test_set.to_csv(self.data_config.test_data_path,index=False,header=True)
 
             loggers.info("Inmgestion of the data is completed")
-            return(
-                self.data_config.train_data_path,
-                self.data_config.test_data_path
-
-            )
+            return (self.data_config.train_data_path,self.data_config.test_data_path )
 
         except Exception as e:
             loggers.error('failed to ingest data')
@@ -44,6 +43,9 @@ class DataIngestion:
 if __name__=="__main__":
     obj=DataIngestion()
     train_data,test_data=obj.start_ingestion()
+
+    data_transformation=Preprocessing()
+    train_arr,test_arr,_=data_transformation.startdatapreprocessing(train_data,test_data)
         
 
 
