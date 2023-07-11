@@ -1,6 +1,10 @@
 pandas
 scikit-learn
+catboost
+xgboost
+mlflow
 dill
 numpy
 seaborn
+optuna
 -e .
